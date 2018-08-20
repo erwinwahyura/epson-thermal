@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="epos-2.7.0.js"></script>
+  </head>
+  <body>
+    <button type="button" name="button" onclick="test()">test</button>
+    <script>
+        function test () {
+          var builder = new epson.ePOSBuilder()
+          console.log(builder)
+          builder.addTextLang('en')
+          builder.addTextSmooth(true);
+          builder.addTextFont(builder.FONT_A);
+          builder.addTextSize(3, 3);
+          builder.addText('Hello,\tWorld!\n');
+          builder.addCut(builder.CUT_FEED); //Acquire the print document
+          var request = builder.toString();
+          console.log(request);
+          alert(request);
+          var address = 'http://192.168.192.168/cgi-bin/epos/service.cgi?devid=local_printer&timeout=10000'
+
+          // let address =
+          var epos = new epson.ePOSPrint(address)
+          console.log(epos)
+          epos.send(request)
+        }
+    </script>
+  </body>
+</html>
