@@ -37,114 +37,79 @@
           builder.addText('\n');
           builder.addTextStyle(0, 0, 0);
 
-          builder.addTextPosition(0, 190)
-          builder.addText('Nama Produk')
-          builder.addTextStyle(0, 0, 0);
-
-          builder.addTextPosition(200, 190)
-          builder.addText('Size')
-          builder.addTextStyle(0, 0, 0);
-
-          builder.addTextPosition(300, 190)
-          builder.addText('Jumlah')
-          builder.addTextStyle(0, 0, 0);
-
-          builder.addTextPosition(400, 190)
-          builder.addText('Harga')
-          builder.addTextStyle(0, 0, 0);
-
-          builder.addTextPosition(500, 190)
-          builder.addText('Total')
-          builder.addTextStyle(0, 0, 0);
+          // header struk
+          let headerKey = ['Nama Produk', 'Size', 'Jumlah', 'Harga', 'Total']
+          let pos = 0
+          for (let i = 0; i < headerKey.length; i++) {
+            builder.addTextPosition(pos, 190)
+            builder.addText(headerKey[i])
+            builder.addTextStyle(0, 0, 0);
+            pos+=100
+          }
 
           // page break
           builder.addText('\n');
-          for (var i = 0; i < 4; i++) {
-            builder.addTextPosition(0, 0)
-            builder.addText('Bulpen Faster 2.0')
-            builder.addTextStyle(0, 0, 0);
+          let sampleText = [{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 0
+          }]
 
-            builder.addTextPosition(200, 0)
-            builder.addText('-')
-            builder.addTextStyle(0, 0, 0);
-
-            builder.addTextPosition(300, 0)
-            builder.addText('50')
-            builder.addTextStyle(0, 0, 0);
-
-            builder.addTextPosition(400, 0)
-            builder.addText('2500')
-            builder.addTextStyle(0, 0, 0);
-
-            builder.addTextPosition(500, 0)
-            builder.addText('12500')
-            builder.addTextStyle(0, 0, 0);
+          // Produk struk
+          for (let i = 0; i < sampleText.length; i++) {
+            let pos = 0
+            let value = Object.values(sampleText[i])
+            Object.keys(sampleText[i]).map((key, idx) => {
+              builder.addTextPosition(pos, 0)
+              builder.addText(`${value[idx]}`)
+              builder.addTextStyle(0, 0, 0);
+              pos+=100
+              builder.addText('\n');
+            })
             builder.addText('\n');
           }
 
-          builder.addText('\n');
+          // price section
+          let priceSection = [{
+            subtotal: 12000,
+            pajak: 10,
+            potongan_harga_total: 0,
+            grand_total: 13200,
+            total_bayar: 15000,
+            total_kembalian: 1800
+          }]
+          for (let i = 0; i < priceSection.length; i++) {
+            let pos = 0
+            let value = Object.values(priceSection[i])
+            Object.keys(priceSection[i]).map((key, idx) => {
+              builder.addTextAlign(builder.ALIGN_RIGHT)
+              builder.addText(key)
+              builder.addTextPosition(250, 0)
+              builder.addText(value[idx])
+              builder.addTextStyle(0, 1, 0);
+              builder.addText('\n');
+            })
+          }
 
-          builder.addTextAlign(builder.ALIGN_RIGHT)
-          builder.addText('Subtotal')
-          builder.addTextPosition(250, 0)
-          builder.addText('250000')
-          builder.addTextStyle(0, 1, 0);
+          // footer
+          let footerSection = [{
+            tipe_pembayaran: "DEBIT",
+            nomor_kartu: "129391293299000"
+          }]
 
-          // break
-          builder.addText('\n');
-
-          builder.addTextAlign(builder.ALIGN_RIGHT)
-          builder.addText('Pajak ( 10% )')
-          builder.addTextPosition(250, 0)
-          builder.addText('25000')
-          builder.addTextStyle(0, 1, 0);
-
-          // break
-          builder.addText('\n');
-
-          builder.addTextAlign(builder.ALIGN_CENTER)
-          builder.addText('Potongan Harga Total')
-          builder.addTextPosition(250, 0)
-          builder.addText('0')
-          builder.addTextStyle(0, 1, 0);
-          // break
-          builder.addText('\n');
-
-          builder.addTextAlign(builder.ALIGN_RIGHT)
-          builder.addText('Grand Total')
-          builder.addTextPosition(250, 0)
-          builder.addText('275000')
-          builder.addTextStyle(0, 1, 0);
-
-          builder.addText('\n');
-          builder.addText('\n')
-
-          builder.addText('Total Bayar')
-          builder.addTextPosition(250, 0)
-          builder.addText('300000')
-          builder.addTextStyle(0, 1, 0);
-
-          builder.addText('\n');
-
-          builder.addText('Total Kembalian')
-          builder.addTextPosition(250, 0)
-          builder.addText('25000')
-          builder.addTextStyle(0, 1, 0);
-
-          builder.addText('\n');
-          builder.addText('\n')
-
-          builder.addText('Tipe Pembayaran')
-          builder.addTextPosition(250, 0)
-          builder.addText('Kartu Debit')
-          builder.addTextStyle(0, 1, 0);
-
-          builder.addText('\n');
-
-          builder.addText('Nomor Kartu')
-          builder.addTextPosition(250, 0)
-          builder.addText('01234678912312')
-          builder.addTextStyle(0, 1, 0);
+          for (let i = 0; i < priceSection.length; i++) {
+            let pos = 0
+            let value = Object.values(priceSection[i])
+            Object.keys(priceSection[i]).map((key, idx) => {
+              builder.addText(key)
+              builder.addTextPosition(250, 0)
+              builder.addText(value[idx])
+              builder.addTextStyle(0, 1, 0);
+              builder.addText('\n');
+            })
+          }
 
           builder.addText('\n');
 
