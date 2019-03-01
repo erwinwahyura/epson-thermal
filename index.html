@@ -98,9 +98,9 @@
             nomor_kartu: "129391293299000"
           }]
 
-          for (let i = 0; i < priceSection.length; i++) {
-            let value = Object.values(priceSection[i])
-            Object.keys(priceSection[i]).map((key, idx) => {
+          for (let i = 0; i < footerSection.length; i++) {
+            let value = Object.values(footerSection[i])
+            Object.keys(footerSection[i]).map((key, idx) => {
               builder.addText(key)
               builder.addTextPosition(250, 0)
               builder.addText(value[idx])
