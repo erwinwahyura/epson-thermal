@@ -81,7 +81,6 @@
             total_kembalian: 1800
           }]
           for (let i = 0; i < priceSection.length; i++) {
-            let pos = 0
             let value = Object.values(priceSection[i])
             Object.keys(priceSection[i]).map((key, idx) => {
               builder.addTextAlign(builder.ALIGN_RIGHT)
@@ -100,7 +99,6 @@
           }]
 
           for (let i = 0; i < priceSection.length; i++) {
-            let pos = 0
             let value = Object.values(priceSection[i])
             Object.keys(priceSection[i]).map((key, idx) => {
               builder.addText(key)
