@@ -41,12 +41,12 @@
           let headerKey = ['Nama Produk', 'Size', 'Jumlah', 'Harga', 'Total']
           let pos = 0
           for (let i = 0; i < headerKey.length; i++) {
-
             builder.addTextPosition(pos, 190)
+            builder.addTextAlign(builder.ALIGN_LEFT)
             builder.addText(headerKey[i])
             builder.addTextStyle(0, 0, 0);
             if (i === 0) {
-              pos += 260
+              pos += 210
             } else if (i === 1) {
               pos += 50
             } else if (i === 2) {
@@ -57,91 +57,87 @@
           }
 
           // page break
-          builder.addText('\n');
+          // builder.addText('\n');
           let sampleText = [{
             name: 'Bulpen faster 2.0',
             size: 'XL',
             jumlah: 20,
-            price: 2000,
-            totalPrice: 40000
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 20,
-            price: 2000,
-            totalPrice: 40000
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 20,
-            price: 2000,
-            totalPrice: 40000
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 20,
-            price: 2000,
-            totalPrice: 40000
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 20,
-            price: 2000,
-            totalPrice: 40000
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 20,
-            price: 2000,
-            totalPrice: 40000
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 1,
-            price: 2000,
-            totalPrice: 2000
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 6,
-            price: 2000,
-            totalPrice: 12000
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 2,
-            price: 100,
-            totalPrice: 200
-          },{
-            name: 'Bulpen faster 2.0',
-            size: 'XL',
-            jumlah: 20,
-            price: 2000,
-            totalPrice: 40000
-          },{
-            name: 'Bulpen faster Bulpen',
-            size: 'XL',
-            jumlah: 20,
-            price: 2000,
+            price: 1000,
             totalPrice: 400
           },{
-            name: 'Bulpen faster 2.0',
+            name: 'Seragam Sekolah Hitam Putih',
             size: 'XL',
             jumlah: 20,
-            price: 2000,
-            totalPrice: 400000
+            price: 150,
+            totalPrice: 15250
           }]
+          // },{
+          //   name: 'Bulpen faster 2.0',
+          //   size: 'XL',
+          //   jumlah: 20,
+          //   price: 30000,
+          //   totalPrice: 7000
+          // },{
+          //   name: 'Bulpen faster 2.0',
+          //   size: 'XL',
+          //   jumlah: 20,
+          //   price: 10000,
+          //   totalPrice: 300
+          // },{
+          //   name: 'Bulpen faster 2.0',
+          //   size: 'XL',
+          //   jumlah: 20,
+          //   price: 12100,
+          //   totalPrice: 123
+          // }]
+          builder.addText('\n')
 
+          // FORMAT LENGTH
+          const findLongestNumber = (sources, target) => {
+            let longest = '0'
+            sources.map(source => {
+              if (String(source[target]).length > longest) {
+                return longest = String(source[target]).length
+              }
+            })
+            return longest
+          }
+
+          const longestTotalPrice = findLongestNumber(sampleText, 'totalPrice')
+          const longestPrice = findLongestNumber(sampleText, 'price')
           // Produk struk
           for (let i = 0; i < sampleText.length; i++) {
             let pos = 0
             let value = Object.values(sampleText[i])
             Object.keys(sampleText[i]).map((key, idx) => {
-              builder.addTextAlign(builder.ALIGN_LEFT)
-              builder.addTextPosition(pos, 0)
-              builder.addTextAlign(builder.ALIGN_LEFT)
-              builder.addText(`${value[idx]}`)
-              builder.addTextStyle(0, 0, 0);
+              if (key === 'price') {
+                builder.addTextAlign(builder.ALIGN_RIGHT)
+                builder.addTextPosition(pos, 0)
+                let diff = longestPrice - String(value[idx]).length
+                let totalSpace = ''
+                for (let j = 0; j < diff; j++) {
+                  totalSpace+=' '
+                }
+                // console.log('longestnya: ' + longestPrice + ' total space untuk price: ', totalSpace.length, ' valuenya: ', value[idx]);
+                builder.addText(`${totalSpace}${value[idx]}`)
+                builder.addTextStyle(0, 0, 0);
+              } else if (key === 'totalPrice') {
+                builder.addTextAlign(builder.ALIGN_RIGHT)
+                builder.addTextPosition(pos, 0)
+                let diff = longestTotalPrice - String(value[idx]).length
+                let totalSpace = ''
+                for (let j = 0; j < diff; j++) {
+                  totalSpace+=' '
+                }
+                // console.log('longestnya: ' + longestTotalPrice + ' total space untuk totalPrice: ', totalSpace.length, ' valuenya: ', value[idx]);
+                builder.addText(`${totalSpace}${value[idx]}`)
+                builder.addTextStyle(0, 0, 0);
+              } else {
+                builder.addTextAlign(builder.ALIGN_LEFT)
+                builder.addTextPosition(pos, 0)
+                builder.addText(`${value[idx]}`)
+                builder.addTextStyle(0, 0, 0);
+              }
               if (idx === 0) {
                 pos += 260
               } else if (idx === 1) {
@@ -154,28 +150,54 @@
             })
             builder.addText('\n');
           }
-          builder.addText('\n');
+          // builder.addText('\n');
 
           // price section
           let priceSection = [{
             'Sub Total': 12000,
-            Pajak: 10,
+            'Pajak (10%)': 10,
             'Potongan Harga Total': 0,
             'Grand Total': 13200,
             'Total Bayar': 15000,
             'Total Kembalian': 1800
           }]
+          builder.addText('\n');
+
+          // FORMAT LENGTH
+          const findLongestPriceSection = (sources) => {
+            let longest = '0'
+            for (let i = 0; i < sources.length; i++) {
+              let val = Object.values(sources[i])
+              Object.keys(sources[i]).map((key, idx) => {
+                if (String(val[idx]).length > longest) {
+                  return longest = String(val[idx]).length
+                }
+              })
+              return longest
+            }
+          }
+
+          const longestPriceSection = findLongestPriceSection(priceSection)
+
           for (let i = 0; i < priceSection.length; i++) {
             let value = Object.values(priceSection[i])
             Object.keys(priceSection[i]).map((key, idx) => {
-              // builder.addTextAlign(builder.ALIGN_RIGHT)
-              builder.addTextPosition(210, 10)
               builder.addTextAlign(builder.ALIGN_LEFT)
+              builder.addTextPosition(210, 10)
               builder.addText(key)
               builder.addTextStyle(0, 0, 0);
-              builder.addTextPosition(510, 0)
+
               builder.addTextAlign(builder.ALIGN_RIGHT)
-              builder.addText(value[idx])
+              builder.addTextPosition(490, 0)
+              // giving more space to be align right
+              let diff = longestPriceSection - String(value[idx]).length
+              let totalSpace = ''
+              for (let j = 0; j < diff; j++) {
+                totalSpace+=' '
+              }
+              console.log('longestnya: ' + longestPriceSection + ' total space : ', totalSpace.length, ' valuenya: ', value[idx]);
+
+              builder.addText(`${totalSpace}${value[idx]}`)
               builder.addTextStyle(0, 0, 0);
               builder.addText('\n');
             })
