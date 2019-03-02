@@ -13,8 +13,8 @@
           console.log(builder);
           // get current date
           let now = new Date();
-          builder.addPageBegin()
-          // builder.addPageArea(0, 0, 384, 100);
+          // builder.addPageBegin()
+          // builder.addPageArea(0, 0, 384, 300);
           builder.addTextLang('en')
           builder.addTextSmooth(true);
           builder.addTextFont(builder.FONT_A);
@@ -27,13 +27,13 @@
           builder.addTextFont(builder.FONT_SPECIAL_B);
           builder.addText('Jl. Taman Kedoya Permai, Kebayoran Baru, Jakarta Selatan, 12345');
           // format - line
-          builder.addTextStyle(0, 1, 0);
-          builder.addPagePosition(0, 110);
+          builder.addTextStyle(0, 0, 0);
+          // builder.addPagePosition(0, 110);
 
           builder.addTextFont(builder.FONT_SPECIAL_B);
           builder.addText('\n12345 - ' + now.toDateString() + ' ' + now.toTimeString().slice(0, 8) + ' Kasir: Kevin Himawan\n');
-          builder.addTextStyle(0, 1, 0);
-          builder.addPagePosition(1, 170);
+          builder.addTextStyle(0, 0, 0);
+          // builder.addPagePosition(1, 170);
           builder.addText('\n');
           builder.addTextStyle(0, 0, 0);
 
@@ -41,10 +41,19 @@
           let headerKey = ['Nama Produk', 'Size', 'Jumlah', 'Harga', 'Total']
           let pos = 0
           for (let i = 0; i < headerKey.length; i++) {
+
             builder.addTextPosition(pos, 190)
             builder.addText(headerKey[i])
             builder.addTextStyle(0, 0, 0);
-            pos+=100
+            if (i === 0) {
+              pos += 260
+            } else if (i === 1) {
+              pos += 50
+            } else if (i === 2) {
+              pos += 80
+            } else {
+              pos += 100
+            }
           }
 
           // page break
@@ -54,7 +63,73 @@
             size: 'XL',
             jumlah: 20,
             price: 2000,
-            totalPrice: 0
+            totalPrice: 40000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 40000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 40000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 40000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 40000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 40000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 1,
+            price: 2000,
+            totalPrice: 2000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 6,
+            price: 2000,
+            totalPrice: 12000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 2,
+            price: 100,
+            totalPrice: 200
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 40000
+          },{
+            name: 'Bulpen faster Bulpen',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 400
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 2000,
+            totalPrice: 400000
           }]
 
           // Produk struk
@@ -62,67 +137,77 @@
             let pos = 0
             let value = Object.values(sampleText[i])
             Object.keys(sampleText[i]).map((key, idx) => {
+              builder.addTextAlign(builder.ALIGN_LEFT)
               builder.addTextPosition(pos, 0)
+              builder.addTextAlign(builder.ALIGN_LEFT)
               builder.addText(`${value[idx]}`)
               builder.addTextStyle(0, 0, 0);
-              pos+=100
-              builder.addText('\n');
+              if (idx === 0) {
+                pos += 260
+              } else if (idx === 1) {
+                pos += 50
+              } else if (idx === 2) {
+                pos += 80
+              } else {
+                pos += 100
+              }
             })
             builder.addText('\n');
           }
+          builder.addText('\n');
 
           // price section
           let priceSection = [{
-            subtotal: 12000,
-            pajak: 10,
-            potongan_harga_total: 0,
-            grand_total: 13200,
-            total_bayar: 15000,
-            total_kembalian: 1800
+            'Sub Total': 12000,
+            Pajak: 10,
+            'Potongan Harga Total': 0,
+            'Grand Total': 13200,
+            'Total Bayar': 15000,
+            'Total Kembalian': 1800
           }]
           for (let i = 0; i < priceSection.length; i++) {
             let value = Object.values(priceSection[i])
             Object.keys(priceSection[i]).map((key, idx) => {
-              builder.addTextAlign(builder.ALIGN_RIGHT)
+              // builder.addTextAlign(builder.ALIGN_RIGHT)
+              builder.addTextPosition(210, 10)
+              builder.addTextAlign(builder.ALIGN_LEFT)
               builder.addText(key)
-              builder.addTextPosition(250, 0)
+              builder.addTextStyle(0, 0, 0);
+              builder.addTextPosition(510, 0)
+              builder.addTextAlign(builder.ALIGN_RIGHT)
               builder.addText(value[idx])
-              builder.addTextStyle(0, 1, 0);
+              builder.addTextStyle(0, 0, 0);
               builder.addText('\n');
             })
           }
-
+          builder.addText('\n');
           // footer
           let footerSection = [{
-            tipe_pembayaran: "DEBIT",
-            nomor_kartu: "129391293299000"
+            'Tipe Pembayaran': "DEBIT",
+            'Nomor Kartu': "129391293299000"
           }]
 
           for (let i = 0; i < footerSection.length; i++) {
             let value = Object.values(footerSection[i])
             Object.keys(footerSection[i]).map((key, idx) => {
+              builder.addTextAlign(builder.ALIGN_LEFT)
               builder.addText(key)
-              builder.addTextPosition(250, 0)
+              builder.addTextPosition(230, 0)
               builder.addText(value[idx])
-              builder.addTextStyle(0, 1, 0);
+              builder.addTextStyle(0, 0, 0);
               builder.addText('\n');
             })
           }
 
           builder.addText('\n');
-
+          builder.addText('\n');
           builder.addTextFont(builder.FONT_SPECIAL_B);
           builder.addText('Barang yang sudah dibeli tidak dapat di kembalikan ataupun ditukarkan.\n')
+          builder.addText('\n');
+          builder.addTextStyle(false, false, true)
+          builder.addTextAlign(builder.ALIGN_CENTER)
+          builder.addText('Powered By Uniform.id\n')
 
-
-          builder.addText('\n')
-          builder.addText('\n')
-          builder.addText('Powered By Uniform.id')
-
-          // end page mode
-          builder.addPageEnd();
-          // builder.addPageLine(100, 100, 0, 0, builder.LINE_THIN)
-          // builder.addFeedLine(30) //ini panjang struk
           builder.addCut(builder.CUT_FEED); //Acquire the print document
           let request = builder.toString();
           let address = 'http://192.168.192.168/cgi-bin/epos/service.cgi?devid=local_printer&timeout=10000'
