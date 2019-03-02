@@ -13,8 +13,6 @@
           console.log(builder);
           // get current date
           let now = new Date();
-          // builder.addPageBegin()
-          // builder.addPageArea(0, 0, 384, 300);
           builder.addTextLang('en')
           builder.addTextSmooth(true);
           builder.addTextFont(builder.FONT_A);
@@ -28,12 +26,10 @@
           builder.addText('Jl. Taman Kedoya Permai, Kebayoran Baru, Jakarta Selatan, 12345');
           // format - line
           builder.addTextStyle(0, 0, 0);
-          // builder.addPagePosition(0, 110);
 
           builder.addTextFont(builder.FONT_SPECIAL_B);
           builder.addText('\n12345 - ' + now.toDateString() + ' ' + now.toTimeString().slice(0, 8) + ' Kasir: Kevin Himawan\n');
           builder.addTextStyle(0, 0, 0);
-          // builder.addPagePosition(1, 170);
           builder.addText('\n');
           builder.addTextStyle(0, 0, 0);
 
@@ -57,7 +53,6 @@
           }
 
           // page break
-          // builder.addText('\n');
           let sampleText = [{
             name: 'Bulpen faster 2.0',
             size: 'XL',
@@ -70,26 +65,26 @@
             jumlah: 20,
             price: 150,
             totalPrice: 15250
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 30000,
+            totalPrice: 7000
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 10000,
+            totalPrice: 300
+          },{
+            name: 'Bulpen faster 2.0',
+            size: 'XL',
+            jumlah: 20,
+            price: 12100,
+            totalPrice: 123
           }]
-          // },{
-          //   name: 'Bulpen faster 2.0',
-          //   size: 'XL',
-          //   jumlah: 20,
-          //   price: 30000,
-          //   totalPrice: 7000
-          // },{
-          //   name: 'Bulpen faster 2.0',
-          //   size: 'XL',
-          //   jumlah: 20,
-          //   price: 10000,
-          //   totalPrice: 300
-          // },{
-          //   name: 'Bulpen faster 2.0',
-          //   size: 'XL',
-          //   jumlah: 20,
-          //   price: 12100,
-          //   totalPrice: 123
-          // }]
+
           builder.addText('\n')
 
           // FORMAT LENGTH
@@ -150,8 +145,6 @@
             })
             builder.addText('\n');
           }
-          // builder.addText('\n');
-
           // price section
           let priceSection = [{
             'Sub Total': 12000,
@@ -214,18 +207,15 @@
             Object.keys(footerSection[i]).map((key, idx) => {
               builder.addTextAlign(builder.ALIGN_LEFT)
               builder.addText(key)
-              builder.addTextPosition(230, 0)
+              builder.addTextPosition(180, 0)
               builder.addText(value[idx])
               builder.addTextStyle(0, 0, 0);
               builder.addText('\n');
             })
           }
 
-          builder.addText('\n');
-          builder.addText('\n');
           builder.addTextFont(builder.FONT_SPECIAL_B);
           builder.addText('Barang yang sudah dibeli tidak dapat di kembalikan ataupun ditukarkan.\n')
-          builder.addText('\n');
           builder.addTextStyle(false, false, true)
           builder.addTextAlign(builder.ALIGN_CENTER)
           builder.addText('Powered By Uniform.id\n')
