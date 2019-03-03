@@ -35,7 +35,6 @@
           builder.addTextStyle(0, 0, 0);
           builder.addTextFont(builder.FONT_SPECIAL_B);
           builder.addText(`${headerReceipt.code} - ${now.toDateString()} ${now.toTimeString().slice(0, 8)} Kasir: ${headerReceipt.creator}\n`)
-
           builder.addText(`\n`);
           // header item list
           let headerKey = ['Nama Produk', 'Size', 'Jumlah', 'Harga', 'Total']
@@ -197,13 +196,13 @@
           })
           builder.addText('\n');
           // footer
-          let tipePembayran = {
+          let tipePembayaran = {
             'Tipe Pembayaran': "DEBIT",
             'Nomor Kartu': "129391293299000"
           }
 
-          let valueTipePembayaran = Object.values(tipePembayran)
-          Object.keys(tipePembayran).map((key, idx) => {
+          let valueTipePembayaran = Object.values(tipePembayaran)
+          Object.keys(tipePembayaran).map((key, idx) => {
             builder.addTextAlign(builder.ALIGN_LEFT)
             builder.addText(key)
             builder.addTextPosition(180, 0)
