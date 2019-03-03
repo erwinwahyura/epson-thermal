@@ -10,6 +10,14 @@
     <script>
         function test () {
           let builder = new epson.ePOSBuilder()
+          const headerReceipt = {
+            outlet: 'Tk & Sdk Sang Timur Tomang',
+            address: 'Jl. Taman Kedoya Permai, Kebayoran Baru, Jakarta Selatan, 12345',
+            phoneNumber: 'Telp. 021-72839483',
+            creator: 'Gempi',
+            updatedAt: '2019-01-01',
+            code: '12345'
+          }
           console.log(builder);
           // get current date
           let now = new Date();
@@ -19,21 +27,17 @@
           builder.addTextSize(1, 1);
           builder.addTextStyle(false, false, true)
           builder.addTextAlign(builder.ALIGN_CENTER)
-          builder.addText('Tk & Sdk Sang Timur Tomang\n');
-          builder.addText('Telp. 021-72839483\n');
+          builder.addText(`${headerReceipt.outlet}\n`);
+          builder.addText(`${headerReceipt.phoneNumber}\n`);
           builder.addTextSize(1, 1);
           builder.addTextFont(builder.FONT_SPECIAL_B);
-          builder.addText('Jl. Taman Kedoya Permai, Kebayoran Baru, Jakarta Selatan, 12345');
-          // format - line
+          builder.addText(`${headerReceipt.address}\n`);
           builder.addTextStyle(0, 0, 0);
-
           builder.addTextFont(builder.FONT_SPECIAL_B);
-          builder.addText('\n12345 - ' + now.toDateString() + ' ' + now.toTimeString().slice(0, 8) + ' Kasir: Kevin Himawan\n');
-          builder.addTextStyle(0, 0, 0);
-          builder.addText('\n');
-          builder.addTextStyle(0, 0, 0);
+          builder.addText(`${headerReceipt.code} - ${now.toDateString()} ${now.toTimeString().slice(0, 8)} Kasir: ${headerReceipt.creator}\n`)
 
-          // header struk
+          builder.addText(`\n`);
+          // header item list
           let headerKey = ['Nama Produk', 'Size', 'Jumlah', 'Harga', 'Total']
           let pos = 0
           for (let i = 0; i < headerKey.length; i++) {
@@ -53,7 +57,7 @@
           }
 
           // page break
-          let sampleText = [{
+          let itemList = [{
             name: 'Bulpen faster 2.0',
             size: 'XL',
             jumlah: 20,
@@ -98,13 +102,13 @@
             return longest
           }
 
-          const longestTotalPrice = findLongestNumber(sampleText, 'totalPrice')
-          const longestPrice = findLongestNumber(sampleText, 'price')
+          const longestTotalPrice = findLongestNumber(itemList, 'totalPrice')
+          const longestPrice = findLongestNumber(itemList, 'price')
           // Produk struk
-          for (let i = 0; i < sampleText.length; i++) {
+          for (let i = 0; i < itemList.length; i++) {
             let pos = 0
-            let value = Object.values(sampleText[i])
-            Object.keys(sampleText[i]).map((key, idx) => {
+            let value = Object.values(itemList[i])
+            Object.keys(itemList[i]).map((key, idx) => {
               if (key === 'price') {
                 builder.addTextAlign(builder.ALIGN_RIGHT)
                 builder.addTextPosition(pos, 0)
@@ -146,73 +150,67 @@
             builder.addText('\n');
           }
           // price section
-          let priceSection = [{
+          let totalPrice = {
             'Sub Total': 12000,
             'Pajak (10%)': 10,
             'Potongan Harga Total': 0,
             'Grand Total': 13200,
             'Total Bayar': 15000,
             'Total Kembalian': 1800
-          }]
+          }
           builder.addText('\n');
 
           // FORMAT LENGTH
           const findLongestPriceSection = (sources) => {
             let longest = '0'
-            for (let i = 0; i < sources.length; i++) {
-              let val = Object.values(sources[i])
-              Object.keys(sources[i]).map((key, idx) => {
-                if (String(val[idx]).length > longest) {
-                  return longest = String(val[idx]).length
-                }
-              })
-              return longest
-            }
-          }
-
-          const longestPriceSection = findLongestPriceSection(priceSection)
-
-          for (let i = 0; i < priceSection.length; i++) {
-            let value = Object.values(priceSection[i])
-            Object.keys(priceSection[i]).map((key, idx) => {
-              builder.addTextAlign(builder.ALIGN_LEFT)
-              builder.addTextPosition(210, 10)
-              builder.addText(key)
-              builder.addTextStyle(0, 0, 0);
-
-              builder.addTextAlign(builder.ALIGN_RIGHT)
-              builder.addTextPosition(490, 0)
-              // giving more space to be align right
-              let diff = longestPriceSection - String(value[idx]).length
-              let totalSpace = ''
-              for (let j = 0; j < diff; j++) {
-                totalSpace+=' '
+            let val = Object.values(sources)
+            Object.keys(sources).map((key, idx) => {
+              if (String(val[idx]).length > longest) {
+                return longest = String(val[idx]).length
               }
-              console.log('longestnya: ' + longestPriceSection + ' total space : ', totalSpace.length, ' valuenya: ', value[idx]);
-
-              builder.addText(`${totalSpace}${value[idx]}`)
-              builder.addTextStyle(0, 0, 0);
-              builder.addText('\n');
             })
+            return longest
           }
+
+          const longestPriceSection = findLongestPriceSection(totalPrice)
+
+          let valueTotalPrice = Object.values(totalPrice)
+          Object.keys(totalPrice).map((key, idx) => {
+            builder.addTextAlign(builder.ALIGN_LEFT)
+            builder.addTextPosition(210, 10)
+            builder.addText(key)
+            builder.addTextStyle(0, 0, 0);
+
+            builder.addTextAlign(builder.ALIGN_RIGHT)
+            builder.addTextPosition(490, 0)
+            // giving more space to be align right
+            let diff = longestPriceSection - String(valueTotalPrice[idx]).length
+            let totalSpace = ''
+            for (let j = 0; j < diff; j++) {
+              totalSpace+=' '
+            }
+            console.log('longestnya: ' + longestPriceSection + ' total space : ', totalSpace.length, ' valuenya: ', valueTotalPrice[idx]);
+
+            builder.addText(`${totalSpace}${valueTotalPrice[idx]}`)
+            builder.addTextStyle(0, 0, 0);
+            builder.addText('\n');
+          })
           builder.addText('\n');
           // footer
-          let footerSection = [{
+          let tipePembayran = {
             'Tipe Pembayaran': "DEBIT",
             'Nomor Kartu': "129391293299000"
-          }]
-
-          for (let i = 0; i < footerSection.length; i++) {
-            let value = Object.values(footerSection[i])
-            Object.keys(footerSection[i]).map((key, idx) => {
-              builder.addTextAlign(builder.ALIGN_LEFT)
-              builder.addText(key)
-              builder.addTextPosition(180, 0)
-              builder.addText(value[idx])
-              builder.addTextStyle(0, 0, 0);
-              builder.addText('\n');
-            })
           }
+
+          let valueTipePembayaran = Object.values(tipePembayran)
+          Object.keys(tipePembayran).map((key, idx) => {
+            builder.addTextAlign(builder.ALIGN_LEFT)
+            builder.addText(key)
+            builder.addTextPosition(180, 0)
+            builder.addText(valueTipePembayaran[idx])
+            builder.addTextStyle(0, 0, 0);
+            builder.addText('\n');
+          })
 
           builder.addTextFont(builder.FONT_SPECIAL_B);
           builder.addText('Barang yang sudah dibeli tidak dapat di kembalikan ataupun ditukarkan.\n')
