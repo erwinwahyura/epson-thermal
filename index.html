@@ -37,12 +37,12 @@
           builder.addText(`${headerReceipt.code} - ${now.toDateString()} ${now.toTimeString().slice(0, 8)} Kasir: ${headerReceipt.creator}\n`)
           builder.addText(`\n`);
           // header item list
-          let headerKey = ['Nama Produk', 'Size', 'Jumlah', 'Harga', 'Total']
+          let headerMenus = ['Nama Produk', 'Size', 'Jumlah', 'Harga', 'Total']
           let pos = 0
-          for (let i = 0; i < headerKey.length; i++) {
+          for (let i = 0; i < headerMenus.length; i++) {
             builder.addTextPosition(pos, 190)
             builder.addTextAlign(builder.ALIGN_LEFT)
-            builder.addText(headerKey[i])
+            builder.addText(headerMenus[i])
             builder.addTextStyle(0, 0, 0);
             if (i === 0) {
               pos += 210
